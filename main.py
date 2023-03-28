@@ -1,3 +1,5 @@
+import logging
+
 import tkinter
 import tkinter as tk
 from tkinter import *
@@ -80,6 +82,7 @@ def home(root):
 
     bio = Label(text='Created by Alek Ahrens of Phi Kappa Sigma Fall 2020')
     bio.place(x=100,y=320)
+
 def data():
     global filename
     filename = file()
@@ -89,8 +92,14 @@ def clear_frame():
       widgets.destroy()
 
 if __name__ == '__main__':
-    root = tk.Tk()
-    root.resizable(False,False)
-    data()
-    home(root)
-    root.mainloop()
+    logging.basicConfig(
+        filename='testing.log', level=logging.DEBUG)
+    try:
+        root = tk.Tk()
+        root.resizable(False,False)
+        data()
+        home(root)
+        root.mainloop()
+    # pylint: disable=broad-except
+    except Exception as err:
+        logging.error(err)
